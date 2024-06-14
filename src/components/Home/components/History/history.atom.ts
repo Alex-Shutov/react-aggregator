@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { IProjectProps } from '@components/Projects/projects.types';
+import { IProjectProps } from '@components/Project/projects.types';
 
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useProjectHistory } from '@components/Home/components/History/hooks/useProjectHistory';
-import { IProjectProps } from '@components/Projects/projects.types';
+import { IProjectProps } from '@components/Project/projects.types';
 
 interface Project {
   id: string;
@@ -15,7 +15,6 @@ const History: React.FC = () => {
 
   const handleProjectVisit = (project: IProjectProps) => {
     addToHistory(project);
-    // Другая логика обработки посещения проекта
   };
 
   return (
@@ -46,7 +45,7 @@ const History: React.FC = () => {
               </button>
             </div>
             <img
-              src={project.image}
+              // src={project.image}
               alt={project.name}
               className="absolute inset-0 w-full h-full object-cover rounded-lg filter drop-shadow-md transition-opacity duration-300"
             />
