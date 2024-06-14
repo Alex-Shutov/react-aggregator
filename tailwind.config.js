@@ -31,6 +31,9 @@ module.exports = {
       bt_secondary_hover:'#47BDFF',
       bt_secondary_pressed:'#177DDC',
       bt_selector_value:'rgba(200,200,200,0.1)',
+      bt_selector_value_drop:'#3c3c3c',
+      bt_disabled:'#37383A',
+      bt_upload_box:'rgba(255,255,255,0.02)',
 
       //**Text**
 
@@ -38,6 +41,8 @@ module.exports = {
       txt_secondary:'#B6B6B6',
       txt_third:'#C1D9E2',
       txt_info:'#93C2FF',
+      txt_fourth:'#D0E6EE',
+      txt_disabled:'rgba(208,230,238,0.5)',
 
 
 
