@@ -6,8 +6,7 @@ import { routes } from './routes';
 
 
 const renderRoutes = (routes:IRouteProps[],parentPath:string ='') => {
-  console.log(routes,parentPath);
-  return routes.map((route, index) => {
+    return routes.map((route, index) => {
     const fullPath = `${parentPath}${route.path}`;
 
     return <Route
