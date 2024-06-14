@@ -5,13 +5,11 @@ import FireIcon from '@public/icons/voices.svg';
 import Dropdown from '@shared/Dropdown';
 import useOutsideClick from '@hooks/useOutsideClick';
 import Fires from '@components/User/components/Fires';
+import { IUser } from '@components/User/user.types';
 
 interface IProps{
-  user:{
-    firstName:string,
-    secondName:string,
-    fires:number,
-  }
+  user:IUser|null
+  handleLogout:()=>void
 }
 
 interface IProfileIconProps{
@@ -19,18 +17,18 @@ interface IProfileIconProps{
   secondLetter:string
 }
 
-const Profile: React.FC<IProps> = ({user}) => {
+const ProfileDropdown: React.FC<IProps> = ({user,handleLogout}) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const node = useRef<HTMLDivElement>(null);
 
   useOutsideClick(node, () => setIsActive(false));
-
+  console.log(user,'user');
   return (
     <div ref={node} className="relative flex items-center">
       <Link to="#" className="flex items-center mr-1 font-medium text-base text-white hover:text-blue-bg">
         <span className="mr-5 fw-bolder ">{user ? 'Профиль' : 'Гость'}</span>
         {user ? <div>
-          <ProfileIcon firstLetter={user.firstName[0]} secondLetter={user.secondName[0]}/>
+          <ProfileIcon firstLetter={user?.name[0] ?? 'П'} secondLetter={user?.surname[0] ?? 'П'}/>
           <span className="w-4 h-4 bg-center bg-no-repeat bg-contain" style={{ backgroundImage: `url(${dropdownOutline})` }} />
         </div> : <ProfileIcon firstLetter={'П'} secondLetter={'П'}/>}
       </Link>
@@ -46,27 +44,29 @@ const Profile: React.FC<IProps> = ({user}) => {
         </li>
       </ul>
       }
-      <Dropdown after={<Fires firesCount={user?.fires??null}/>} items={
+      <Dropdown items={
         [
-          {route:'/my-projects', title:'Мои проекты', disable:!user},
-          {route:'/profile', title:'Профиль', disable:!user},
+          {route:'profile/my-projects', title:'Мои проекты', disable:!user},
+          {route:'/profile/information', title:'Профиль', disable:!user},
           {route:'/auth',title:'Войти', disable:!!user},
-          {route:'/logout',title:'Выйти', disable:!user}
+          {route:'/sign-up',title:'Регистрация', disable:!!user},
+          {route:'/',title:'Выйти', disable:!user,onClick:handleLogout}
         ]
       }/>
+      {user && <Fires firesCount={user?.fires ?? 0}/>}
 
 
-      {user && <div className="flex items-center">
-        <img src={FireIcon} alt="" className={`w-8 h-8 filter ${user.fires !== 0 ? '' : 'grayscale'}`} />
-        <span className="text-white font-inter font-bold text-base ml-1">{user.fires}</span>
-      </div>
-      }
+      {/*{user?.id && <div className="flex items-center">*/}
+      {/*  <img src={FireIcon} alt="" className={`w-8 h-8 filter ${user?.fires !== 0 ? '' : 'grayscale'}`} />*/}
+      {/*  <span className="text-white font-inter font-bold text-base ml-1">{user?.fires}</span>*/}
+      {/*</div>*/}
+      {/*}*/}
     </div>
   );
 };
 
 
-export default Profile;
+export default ProfileDropdown;
 
 const ProfileIcon:React.FC<IProfileIconProps> = ({firstLetter,secondLetter})=> {
   return <div
