@@ -5,6 +5,7 @@ import App from './App';
 import AuthProvider from '@components/Auth/auth.provider';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,6 +14,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
         <RecoilRoot>
+          <SnackbarProvider
+            autoHideDuration={3000}
+            anchorOrigin={{vertical:'top',horizontal:'right'}}
+          />
           <AuthProvider>
             <App />
           </AuthProvider>
