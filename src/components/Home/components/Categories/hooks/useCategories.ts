@@ -1,44 +1,52 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { allCategoriesList, selectedCategoriesList } from '@components/Home/components/Categories/categories.atoms';
+import { allCategoriesList } from '@components/Home/components/Categories/categories.atoms';
 import { getAllCategories } from '@components/Home/components/Categories/categories.selectors';
-import { ICategoryProps } from '@components/Home/components/Categories/categories.types';
 
 const UseCategories = () => {
   const [categoriesList,setCategoriesList] = useRecoilState(allCategoriesList)
-  const [selectedCategories,setSelectedCategories] = useRecoilState(selectedCategoriesList)
-  const fetchedAllCategories = useRecoilValue(getAllCategories)
+  const fetchedAllCategories = useRecoilValue(getAllCategories)??[]
+  setCategoriesList(fetchedAllCategories)
+  const toogleCategory = (id: string, childId?: string) => {
+    setCategoriesList((prevCategories) => {
+      return prevCategories.map((category) => {
+        if (category.id === id) {
+          // Если это главная категория
+          if (!childId) {
+            return { ...category, isChecked: !category.isChecked };
+          }
 
-  const toogleCategory = (id:string) => {
+          // Если это дочерняя категория
+          return {
+            ...category,
+            childCategories: category.childCategories?.map((child) =>
+              child.id === childId ? { ...child, isChecked: !child.isChecked } : child
+            ),
+          };
+        }
 
-    setSelectedCategories((prevSelectedCategories) => {
-      const findedCategory = prevSelectedCategories.find(el=>el.id === id)
-      if (findedCategory){
-        return prevSelectedCategories.includes(findedCategory)
-          ? prevSelectedCategories.filter((category) => category.id !== findedCategory.id)
-          : [...prevSelectedCategories, findedCategory]
-      }
-      return prevSelectedCategories
-    }
-    );
+        // Если это не затрагиваемая категория
+        return {
+          ...category,
+          childCategories: category.childCategories?.map((child) =>
+            child.id === childId
+              ? { ...child, isChecked: !child.isChecked }
+              : { ...child }
+          ),
+        };
+      });
+    });
   };
 
 
-
-  const isCategorySelected = (categoryId: string) => {
-    const findedCategory = selectedCategories.find(el=>el.id === categoryId)
-    return findedCategory && selectedCategories.includes(findedCategory) ;
-  }
-
-
-
-  useEffect(() => {
-    setCategoriesList(fetchedAllCategories)
-  }, [fetchedAllCategories]);
+  // useEffect(() => {
+  //   debugger
+  //   setCategoriesList(fetchedAllCategories)
+  // }, []);
 
 
 
-  return {categoriesList,toogleCategory,isCategorySelected}
+  return {categoriesList,toogleCategory}
 };
 
 export default UseCategories;

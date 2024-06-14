@@ -9,10 +9,6 @@ export const allCategoriesList = atom<ICategoryProps[]>({
   default:[]
 })
 
-export const selectedCategoriesList = atom<ICategoryProps[]>({
-  key:'/selected_categories',
-  default:[]
-})
 
 
 
