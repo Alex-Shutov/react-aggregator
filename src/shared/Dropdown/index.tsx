@@ -8,6 +8,7 @@ interface IDropdownOptionProps{
   title:string,
   disable?:boolean
   style?:CSSProperties
+  onClick?:()=>void
 }
 interface IProps {
   header?:React.ReactNode | string
@@ -37,7 +38,7 @@ const Index:React.FC<IProps> = ({items,header,after}) => {
           onClick={toggle}
         >{header ?? <img src={DropdownOutline} alt={'Dropdown'} />}</div>
 
-        <div className={`absolute top-14 z-30 w-[160px] min-h-[120px] right-0 flex flex-col py-4 bg-pnl_fourth ${transClass}`}>
+        <div className={`absolute top-14 z-30 w-[160px]  right-0 flex flex-col py-4 bg-pnl_fourth ${transClass}`}>
           {
             items.map(item =>
               !item.disable && <Link
@@ -45,7 +46,10 @@ const Index:React.FC<IProps> = ({items,header,after}) => {
                 key={item.route}
                 className="text-txt_main hover:text-txt_info px-8 py-1"
                 to={item?.route}
-                onClick={toggle}
+                onClick={()=>{
+                  toggle()
+                  item?.onClick && item?.onClick()
+                }}
               >{item.title}</Link>
             )
           }

@@ -5,10 +5,11 @@ import { IHTTPErrorResponse, IHTTPSuccessResponse } from '@shared/http.types';
 
 export const http = axios.create({
   baseURL: API_URL,
+  // paramsSerializer:{indexes:null}
 })
 
 interface IAuthResponse {
-  accessToken:string
+  user:any
 }
 
 
@@ -22,7 +23,7 @@ http.interceptors.request.use(async (request) => {
 
 http.interceptors.response.use(
   async (response) => {
-    if(response.request.url.toString().contains('/auth')){
+    if(response.request.responseURL.includes('/auth') && response.status>=200 && response.status < 300){
       await handleSetToken(response)
     }
     return response
@@ -41,8 +42,8 @@ const setToken = async (accessToken: string) => {
 }
 export const getToken =  async () => {
   return Cookies.get('accessToken') || '';
-
 }
+
 export const removeToken = async () => {
   Cookies.remove('accessToken');
 }
@@ -52,13 +53,13 @@ export const handleHttpResponse = <T = any>(response: AxiosResponse<T>):IHTTPSuc
   return { status: 'success', body: response.data }
 }
 
-export const handleHttpError = (error: AxiosError):IHTTPErrorResponse => {
+export const handleHttpError = (error: AxiosError<any>):IHTTPErrorResponse => {
+  const code = error?.response?.status.toString()
+  return  { status: 'error', message: error?.message, code }
+  // throw new AxiosError(error?.response?.data?.message,code ?? error?.code)
 
-  const code = error?.code
-
-  return { status: 'error', message: error?.message, code }
 }
 
 const handleSetToken = async (response:AxiosResponse<IAuthResponse>) => {
-   await setToken(response.data.accessToken)
+   await setToken(response.data.user.token)
 }

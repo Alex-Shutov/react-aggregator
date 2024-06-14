@@ -1,22 +1,27 @@
+import firstPlace from '@public/icons/place_flag/place_1.svg'
+import secondPlace from '@public/icons/place_flag/place_2.svg'
+import thirdPlace from '@public/icons/place_flag/place_3.svg'
+import defaultPlace from '@public/icons/place_flag/place_default.svg'
+import RatingBadge from '@shared/Badge/RatingBadge';
 
-const Badge: React.FC<{ number: number,boldText?:string,defaultText:string }> = ({ number,boldText, defaultText }) => {
+
+
+const StatusBadge: React.FC<{ number: number, boldText?: string, defaultText: string,urlImage:string,className?:string }> = ({
+                                                                                       number,
+                                                                                       boldText,
+                                                                                       defaultText,
+                                                                                                       className,
+  urlImage
+                                                                                     }) => {
 
   return (
     <>
-    <div className="relative w-8 h-12 mr-2">
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-yellow-400 to-red-500 rounded-md" />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-lg font-bold">
-        {number}
-      </div>
-      {true && (
-        <div className="absolute bottom-0 left-0 w-full text-white text-center text-xs">место</div>
-      )}
-    </div>
-      <div>
-        <b>{boldText}</b>{defaultText}
+      <RatingBadge urlImage={urlImage} number={number}/>
+      <div className={`bg-pnl_secondary flex flex-row max-w-72 rounded p-6 pl-8 border-pnl_secondary border-2 ${className}`}>
+        <span><b>{boldText}</b>{defaultText}</span>
       </div>
     </>
   );
 };
 
-export default Badge
+export default StatusBadge;

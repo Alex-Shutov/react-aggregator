@@ -11,9 +11,7 @@ interface IProps{
 const MainLayout:React.FC<IProps> = ({ after,children }:IProps) => {
   return (
     <div className={'min-h-screen bg-pnl_first'}>
-      <Header after={after}>
-        {children}
-      </Header>
+      {children}
       <Outlet/>
       <Footer/>
     </div>
