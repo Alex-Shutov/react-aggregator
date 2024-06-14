@@ -1,7 +1,4 @@
-type EventFilterType = (IEvent & {checked:boolean})
-export interface IHomeEventFilter extends EventFilterType{
 
-}
 
 
 
@@ -10,6 +7,7 @@ export interface IEvent{
   name:string
   status:IEventStatus
   finishDate?:Date
+  checked?:boolean
 }
 
 export enum IEventStatus {

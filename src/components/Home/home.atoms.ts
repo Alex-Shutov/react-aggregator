@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import homeApi from '@components/Home/home.api';
-import { IEvent, IHomeEventFilter } from '@components/Home/home.types';
+import { IEvent } from '@components/Home/home.types';
 
 
 export const allEventsState = atom<IEvent[]>({
@@ -8,9 +8,14 @@ export const allEventsState = atom<IEvent[]>({
   default:[]
 })
 
-export const homeSelectedEventFilter = atom<IHomeEventFilter|undefined>({
+export const homeSelectedEventFilter = atom<IEvent>({
   key:'/home_event_selected_filters',
   default:undefined
+})
+
+export const currentEventAtom = atom<IEvent|undefined>({
+  key:'/event/current',
+  default: undefined
 })
 
 
