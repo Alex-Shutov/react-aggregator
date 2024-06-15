@@ -4,10 +4,10 @@ FROM node:20.1.0 as front
 WORKDIR /usr/src/app
 
 # Copy package.json to /app
-COPY package*.json /app
+COPY package*.json ./
 
 # copy dependencies . . means all files in current directory with node_modules and other files
-COPY . .
+COPY . ./
 
 
 # run npm install to install dependencies
