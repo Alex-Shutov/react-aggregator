@@ -1,10 +1,10 @@
 FROM node:20.1.0 as front
 
 # Set working directory to /app
-WORKDIR /usr/src/frontend
+WORKDIR /usr/src/app
 
 # Copy package.json to /app
-COPY package*.json .
+COPY package*.json /app
 
 # copy dependencies . . means all files in current directory with node_modules and other files
 COPY . .
