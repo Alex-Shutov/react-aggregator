@@ -13,9 +13,11 @@ COPY . ./
 # run npm install to install dependencies
 RUN npm install
 
+ARG SERVICE_URL
+ENV SERVICE_URL=${SERVICE_URL}
 
 # for production
-RUN npm run build
+RUN SERVICE_URL=${SERVICE_URL} npm run build
 
 # after run npm run build we get build folder in our project
 # pull nginx image from docker hub
