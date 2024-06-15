@@ -30,16 +30,24 @@ const TeamView:React.FC<IProps> = ({ team }) => {
         <div className={'text-txt_secondary text-lg'}>{team?.name}</div>
         <p className="text-gray-600">{team.members.length} участников</p>
       </div>
-      {currentMembers.map((member, index) => (
-        <div key={index} className="flex pl-4 flex-col mb-2">
-          {/*<div className={`w-2 h-2 rounded-full mr-2`}></div>*/}
-          <span className="font-semibold mb-1 mr-2">{member.surname} {member.name}</span>
-          <span className="mb-1 text-gray-600">{member.projectRoles?.role ?? 'Не указано'}</span>
-          <Link to={member.contacts} className="text-blue-500">
-            Контакты
-          </Link>
-        </div>
-      ))}
+      {currentMembers.map((member, index) => {
+
+        // @ts-ignore
+        if(member?.user)
+          { // @ts-ignore
+            member=member.user
+          }
+        return (
+          <div key={index} className="flex pl-4 flex-col mb-2">
+            {/*<div className={`w-2 h-2 rounded-full mr-2`}></div>*/}
+            <span className="font-semibold mb-1 mr-2">{member.surname} {member.name}</span>
+            <span className="mb-1 text-gray-600">{member.projectRoles?.role ?? 'Не указано'}</span>
+            <Link to={member.contacts} className="text-blue-500">
+              Контакты
+            </Link>
+          </div>
+        );
+      })}
       {totalPages > 1 && (
         <Pagination
           current={currentPage}
