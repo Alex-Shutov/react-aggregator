@@ -13,6 +13,7 @@ interface ProjectAsideProps {
 
 const ProjectAside: React.FC<ProjectAsideProps> = ({ projName, id }) => {
   const proj = useProject(id)
+    console.log(proj,id,'projid123');
   return <div className="flex-1 lg:max-w-xs space-y-4">
     <ProjectPlay path={`play`} name={projName} id={id} />
     <TeamView team={proj.team} />

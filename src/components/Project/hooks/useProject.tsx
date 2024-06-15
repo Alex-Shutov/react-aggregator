@@ -53,7 +53,6 @@ function useProjects (id?: string):IProjectWithFunctions | IProjectList  {
 
   const initializeProject = async () => {
     if(currentEvent && team) {
-      debugger
       return await projectApi.createProject(currentEvent.id, team?.id).then((resp) => {
         if (resp.status === 'success') {
           setProject(resp.body.project)
@@ -90,6 +89,7 @@ function useProjects (id?: string):IProjectWithFunctions | IProjectList  {
 
   const result = useMemo(()=>{
     if(id && id!=='create') {
+      debugger
       if(id && project)
         return {...project,updateProjectState,initializeProject,updateProject,publicProject}  as IProjectWithFunctions
       if (allProjects?.projects?.length) {
