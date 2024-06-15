@@ -17,7 +17,7 @@ ARG SERVICE_URL
 ENV SERVICE_URL=${SERVICE_URL}
 
 # for production
-RUN SERVICE_URL=${SERVICE_URL} npm run build
+RUN npm run build
 
 # after run npm run build we get build folder in our project
 # pull nginx image from docker hub
