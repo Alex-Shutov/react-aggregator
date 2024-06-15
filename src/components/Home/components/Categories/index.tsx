@@ -30,7 +30,7 @@ const Categories: React.FC = () => {
             <div key={item.id} className="mt-10 mb-9">
               {/*<h3  className="mb-6 text-xl font-normal">{`${item.name}`}</h3>*/}
               <p
-                className={'text-txt_secondary'}>{item.name}<span>{item.childCategories?.length && `(${item.childCategories.length})`}</span>
+                className={'text-txt_secondary mb-2'}>{item.name}<span>{item.childCategories?.length && `(${item.childCategories.length})`}</span>
               </p>
               {/*<Checkbox className={``} isChecked={item.isChecked} onChange={()=>toogleCategory(item.id)} key={item.id} labelTxt={item.name} />*/}
               {item.childCategories && item.childCategories.map((child, index) => (

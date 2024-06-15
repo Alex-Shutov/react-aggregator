@@ -16,21 +16,24 @@ RUN npm install
 ARG SERVICE_URL
 ENV SERVICE_URL=${SERVICE_URL}
 
-# for production
-RUN npm run build
+## for production
+#CMD npm run start
+#
+## after run npm run build we get build folder in our project
+## pull nginx image from docker hub
+#
+#FROM nginx:1.25.3
+#
+## node name as build
+##  take local folder directory /app/build which is create in this command npm run build above  and copy to nginx folder /usr/share/nginx/html
+## the default folder for nginx is /usr/share/nginx/html because nginx require the static files to run the app. when i try to npm run build it create stic files in build folder and we copy that build folder to nginx folder
+#COPY --from=front /app/build /usr/share/nginx/html
 
-# after run npm run build we get build folder in our project
-# pull nginx image from docker hub
+EXPOSE 3000
 
-FROM nginx:1.25.3
-
-# node name as build
-#  take local folder directory /app/build which is create in this command npm run build above  and copy to nginx folder /usr/share/nginx/html
-# the default folder for nginx is /usr/share/nginx/html because nginx require the static files to run the app. when i try to npm run build it create stic files in build folder and we copy that build folder to nginx folder
-COPY --from=front /app/build /usr/share/nginx/html
-
+CMD ["npm","run","start"]
 
 # default port for nginx is 80
-EXPOSE 80
-
-CMD [ "nginx","-g","daemon off;" ]
+#EXPOSE 80
+#
+#CMD [ "nginx","-g","daemon off;" ]
