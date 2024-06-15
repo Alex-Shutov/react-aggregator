@@ -1,1 +1,1 @@
-export const API_URL = process.env.REACT_APP_API_URL || ''
+export const API_URL = 'http://147.45.237.191:3001/'
